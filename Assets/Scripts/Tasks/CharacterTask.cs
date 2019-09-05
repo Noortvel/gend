@@ -1,0 +1,38 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public abstract class CharacterTask
+{
+    protected CharacterTask(CharacterTaskRunner manager)
+    {
+        this.characterTaskManager = manager;
+        character = characterTaskManager.character;
+    }
+    protected CharacterTaskRunner characterTaskManager
+    {
+        get;
+        set;
+    }
+    protected Character character
+    {
+        get;
+        set;
+    }
+    public bool isNeedUpdate
+    {
+        get;
+        set;
+    }
+
+    public abstract void Run();
+    
+
+    public abstract void UpdateTick();
+    public abstract void Stop();
+    protected void EndTask()
+    {
+        characterTaskManager.TaskEndJob(this);
+    }
+  
+}
