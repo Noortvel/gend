@@ -82,14 +82,6 @@ public class Character : MonoBehaviour
     {
         get { return navMesh.angularSpeed; }
     }
-
-    [SerializeField]
-    private Animation _animationMontages;
-    public Animation animationMontages
-    {
-        get { return _animationMontages; }
-        private set { _animationMontages = value; }
-    }
     [SerializeField]
     private Animator _animator;
     public Animator animator
@@ -109,11 +101,17 @@ public class Character : MonoBehaviour
         get { return _rightHandSocket; }
 
     }
+    public CharacterAnimationsController animationsController
+    {
+        private set;
+        get;
+    }
 
     private NavMeshAgent navMesh;
     public void Awake()
     {
         navMesh = GetComponent<NavMeshAgent>();
+        animationsController = GetComponent<CharacterAnimationsController>();
         foreach (var x in skills)
         {
             x.Initialize(this);

@@ -19,15 +19,7 @@ public class FistsAttack : SkillBase
     private bool LeftRightPunch = false;
     public override void Activate()
     {
-        if (LeftRightPunch)
-        {
-            owner.animationMontages.Play("PunchL1");
-        }
-        else
-        {
-            owner.animationMontages.Play("PunchR1");
-        }
-        LeftRightPunch = !LeftRightPunch;
+    
     }
 
     public override void AnimationNotify()
@@ -38,8 +30,7 @@ public class FistsAttack : SkillBase
     public override void Initialize(Character character)
     {
         owner = character;
-        owner.animationMontages.AddClip(l1, "PunchL1");
-        owner.animationMontages.AddClip(r1, "PunchR1");
+       
         //cAnimation = controller.GetControlledCharacter()
     }
 

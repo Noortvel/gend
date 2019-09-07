@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MagicArrow : SkillBase
 {
-    private Character owner;
 
     [SerializeField]
     private int damage;
@@ -17,37 +16,34 @@ public class MagicArrow : SkillBase
 
     public override void Activate()
     {
-
         print("Activate");
         isCasted = false;
         //InvokeThroughTime
-        owner.animator.SetBool("isMagic1HCast", true);
-
-
+        character.animationsController.Magic1HCastAnimation_Play();
     }
 
     public override void AnimationNotify()
     {
-        Vector3 dt = (owner.selectedObject.transform.position - owner.rightHandSocket.position);
+        Vector3 dt = (character.selectedObject.transform.position - character.rightHandSocket.position);
         float angle = Mathf.Atan2(dt.x, dt.z) * Mathf.Rad2Deg;
         Quaternion rot = Quaternion.Euler(new Vector3(0, angle, 0));
-        _gameObjectInstace = MonoBehaviour.Instantiate(magicArrowProjectile, owner.rightHandSocket.position, rot);
-        owner.animator.SetBool("isMagic1HCast", false);
+        _gameObjectInstace = MonoBehaviour.Instantiate(magicArrowProjectile, character.rightHandSocket.position, rot);
+
+        character.animationsController.Magic1HCastAnimation_Stop();
         isCasted = true;
 
     }
 
     public override void Initialize(Character character)
     {
-        owner = character;
-        
+        this.character = character;
         AnimationEventsCatcher.animationMagic1HCast += AnimationNotify;
 
     }
 
     public override void Interrupt()
     {
-        owner.animator.SetBool("isMagic1HCast", false);
+        character.animationsController.Magic1HCastAnimation_Stop();
         isCasted = true;
 
     }
