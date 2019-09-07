@@ -45,13 +45,27 @@ public abstract class SkillBase : MonoBehaviour
     {
         get { return _coolDown; }
     }
+    public bool isReadyToCast
+    {
+        protected set;
+        get;
+    }
     public float distance
     {
         get { return _distance; }
     }
 
-
+    protected Character character
+    {
+        get;
+        set;
+    }
+    protected void SetCastingStatus()
+    {
+        
+    }
     public abstract void Activate();
+    public abstract void Interrupt();
     public abstract void AnimationNotify();
     public abstract void Initialize(Character character);
 

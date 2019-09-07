@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.AI;
 using UnityEngine;
 
 
@@ -66,10 +67,20 @@ public class Character : MonoBehaviour
             return _skills;
         }
     }
+
     public Character selectedObject
     {
         get;
         set;
+    }
+    public SkillBase currentCastingSkill
+    {
+        get;
+        set;
+    }
+    public float angularSpeed
+    {
+        get { return navMesh.angularSpeed; }
     }
 
     [SerializeField]
@@ -99,18 +110,15 @@ public class Character : MonoBehaviour
 
     }
 
-
+    private NavMeshAgent navMesh;
     public void Awake()
     {
-        foreach(var x in skills)
+        navMesh = GetComponent<NavMeshAgent>();
+        foreach (var x in skills)
         {
             x.Initialize(this);
         }
 
     }
-    public bool isFriend(Character target)
-    {
-        return false;
-    }
-  
+
 }

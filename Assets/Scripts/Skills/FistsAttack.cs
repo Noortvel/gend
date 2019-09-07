@@ -42,4 +42,9 @@ public class FistsAttack : SkillBase
         owner.animationMontages.AddClip(r1, "PunchR1");
         //cAnimation = controller.GetControlledCharacter()
     }
+
+    public override void Interrupt()
+    {
+        throw new System.NotImplementedException();
+    }
 }

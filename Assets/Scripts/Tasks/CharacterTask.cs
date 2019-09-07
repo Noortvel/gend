@@ -24,6 +24,11 @@ public abstract class CharacterTask
         get;
         set;
     }
+    public bool isBreakable
+    {
+        protected set;
+        get;
+    }
 
     public abstract void Run();
     

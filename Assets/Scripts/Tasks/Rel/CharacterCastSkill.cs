@@ -8,6 +8,7 @@ public class CharacterCastSkill : CharacterTask
     public CharacterCastSkill(CharacterTaskRunner manager) : base(manager)
     {
         isNeedUpdate = true;
+        isBreakable = false;
     }
     public void SetSkill(SkillBase skill)
     {
@@ -17,10 +18,14 @@ public class CharacterCastSkill : CharacterTask
     {
         Debug.Log("CharacterCastSkill Run");
         skill.Activate();
+        character.currentCastingSkill = skill;
+
     }
 
     public override void Stop()
     {
+        skill.Interrupt();
+        character.currentCastingSkill = null;
         EndTask();
     }
 

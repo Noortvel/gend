@@ -9618,6 +9618,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1576187570}
   - component: {fileID: 1576187569}
+  - component: {fileID: 1576187571}
   m_Layer: 0
   m_Name: Technica
   m_TagString: Untagged
@@ -9651,6 +9652,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1576187571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576187568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7e874d9e0f26045ad1f9b904d034b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1582935505 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 477712, guid: 59aeb7cf1c26b124796f7190b1ffe1ed,
@@ -10866,6 +10879,11 @@ PrefabInstance:
       propertyPath: cameraObject
       value: 
       objectReference: {fileID: 45778855}
+    - target: {fileID: 756048274751696788, guid: 53c7a5c302d52424daa8b1ec6efc5616,
+        type: 3}
+      propertyPath: m_AngularSpeed
+      value: 400
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 53c7a5c302d52424daa8b1ec6efc5616, type: 3}
 --- !u!1 &1802278571

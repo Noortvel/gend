@@ -17,8 +17,10 @@ public class MagicArrow : SkillBase
 
     public override void Activate()
     {
+
         print("Activate");
         isCasted = false;
+        //InvokeThroughTime
         owner.animator.SetBool("isMagic1HCast", true);
 
 
@@ -38,14 +40,15 @@ public class MagicArrow : SkillBase
     public override void Initialize(Character character)
     {
         owner = character;
-        //owner.animationMontages.clip = castAnimation;
-        //"MagicArrowCast"
-
         
         AnimationEventsCatcher.animationMagic1HCast += AnimationNotify;
-        //owner.animator.SetBool("characterTasks", true);
 
+    }
 
+    public override void Interrupt()
+    {
+        owner.animator.SetBool("isMagic1HCast", false);
+        isCasted = true;
 
     }
 }

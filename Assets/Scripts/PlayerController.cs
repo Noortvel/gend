@@ -59,20 +59,11 @@ public class PlayerController : MasterOfComponents
             if (info.transform.tag == "Character")
             {
                 var obj = info.transform.gameObject;
-                //print(obj);
                 controlledCharacter.selectedObject = obj.GetComponent<Character>();
-                //print(controlledCharacter.attackTarget);
 
                 selectedCircle.Targeting(controlledCharacter.selectedObject.gameObject);
             }
-            //else
-            //{
-            //    characterTargetCircle.UnTargeting();
-            //}
-
-            //var obj = Instantiate(groudPointerPrefab, info.point, qrot);
-            //Debug.DrawRay(info.point, info.normal, Color.yellow, 10f);
-            //Debug.DrawLine(cameraObject.transform.position, info.point, Color.red, 2f);
+           
         }
     }
     private void RayCastUpdater()

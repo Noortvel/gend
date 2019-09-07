@@ -48,7 +48,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   type: 1
   entity: 2
-  _coolDown: 0
+  _coolDown: 1.1
   _distance: 10
   damage: 2
   magicArrowProjectile: {fileID: 4482498533592923915, guid: 942ddd32540baec40bf196915fef56df,

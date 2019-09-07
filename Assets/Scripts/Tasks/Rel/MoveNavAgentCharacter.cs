@@ -12,6 +12,7 @@ public class MoveNavAgentCharacter : CharacterTask
     {
         navMesh = manager.character.GetComponent<NavMeshAgent>();
         isNeedUpdate = true;
+        isBreakable = true;
     }
     public void SetDestanation(Vector3 location)
     {
@@ -19,6 +20,7 @@ public class MoveNavAgentCharacter : CharacterTask
     }
     public override void Run()
     {
+        navMesh.updateRotation = true;
         navMesh.SetDestination(location);
         navMesh.isStopped = false;
         _isMoveStart = true;
@@ -37,6 +39,8 @@ public class MoveNavAgentCharacter : CharacterTask
     {
         _isMoveStart = false;
         navMesh.isStopped = true;
+        navMesh.updateRotation = false;
+        navMesh.SetDestination(character.transform.position);
         location = Vector3.zero;
         EndTask();
     }

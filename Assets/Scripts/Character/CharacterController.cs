@@ -69,7 +69,13 @@ public class CharacterController : MonoBehaviour
   
     public void CastSkill(SkillBase skill)
     {
-        PreapareToSkill(skill);
+        print("Cast skill " + skill);
+        print("Current casted skill " + character.currentCastingSkill);
+        print("Is Equal " + (skill == character.currentCastingSkill));
+        if (character.currentCastingSkill != skill)
+        {
+            PreapareToSkill(skill);
+        }
     }
     public void PreapareToSkill(SkillBase skill)
     {

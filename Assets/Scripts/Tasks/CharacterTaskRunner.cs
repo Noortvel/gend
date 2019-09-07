@@ -45,13 +45,17 @@ public class CharacterTaskRunner
     }
     public void RunQueue()
     {
-        Debug.Log("Run Queue");
+        if (currentRunnable != null)
+        {
+            currentRunnable.Stop();
+            isUpdateTick = true;
+            return;
+        }
+        Debug.Log("Run Queue, size: " + characterTasks.Count + "tasks: ");
         foreach(var x in characterTasks)
         {
             Debug.Log(x);
         }
-        Debug.Log("Queue Size: " + characterTasks.Count);
-
         currentRunnable = characterTasks.Dequeue();
         currentRunnable.Run();
         isUpdateTick = true;
@@ -70,15 +74,13 @@ public class CharacterTaskRunner
     {
 
 
-        Debug.Log("Task End: " + task);
-        Debug.Log("Queue size: " + characterTasks.Count);
+        Debug.Log("Task End: " + task + "Queue size: " + characterTasks.Count);
 
         if (characterTasks.Count > 0)
         {
 
             currentRunnable = characterTasks.Dequeue();
             currentRunnable.Run();
-            //Debug.Log("Task ended: " + (t == task));
         }
         else if(isUpdateTick)
         {
