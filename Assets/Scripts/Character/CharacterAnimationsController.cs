@@ -19,6 +19,17 @@ public class CharacterAnimationsController : MonoBehaviour
         float speedRatio = movement.velocity.magnitude / movement.speed;
         animator.SetFloat("SpeedRatio", speedRatio);
     }
+    public void SetType(Character.CharacterType type)
+    {
+        if (type == Character.CharacterType.Magic)
+        {
+            animator.SetBool("isMagic", true);
+        }
+        if(type == Character.CharacterType.Archer)
+        {
+            animator.SetBool("isArcher", true);
+        }
+    }
     public void Magic1HCastAnimation_Play()
     {
         animator.SetBool("isMagic1HCast", true);

@@ -9,6 +9,7 @@ using UnityEngine.AI;
 public class PlayerController : MasterOfComponents
 {
 
+    
     public CharacterController characterController
     {
         private set;
@@ -35,7 +36,6 @@ public class PlayerController : MasterOfComponents
     private GameObject backlightCirclePrefab;
 
     private Camera cameraComponent;
-    private NavMeshAgent navmesh;
 
     private void RaycastCheck()
     {
@@ -110,9 +110,8 @@ public class PlayerController : MasterOfComponents
             RaycastCheck();
         }
     }
-    new void Update()
+    protected override void UpdateTick()
     {
-        base.Update();
         InputCheckUpdate();
         RayCastUpdater();
     }

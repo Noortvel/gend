@@ -44,7 +44,14 @@ public class Character : MonoBehaviour
 {
 
     private Clan clan;
+    public enum CharacterType
+    {
+        Magic,
+        Archer
+    }
 
+    [SerializeField]
+    private CharacterType characterType;
  
 
 
@@ -112,6 +119,7 @@ public class Character : MonoBehaviour
     {
         navMesh = GetComponent<NavMeshAgent>();
         animationsController = GetComponent<CharacterAnimationsController>();
+        animationsController.SetType(characterType);
         foreach (var x in skills)
         {
             x.Initialize(this);

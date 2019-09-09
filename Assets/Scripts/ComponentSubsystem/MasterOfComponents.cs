@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MasterOfComponents : MonoBehaviour
+public abstract class MasterOfComponents : MonoBehaviour
 {
     private List<BaseComponent> components = new List<BaseComponent>();
     public void RegistComponent(BaseComponent component)
     {
         components.Add(component);
     }
-    protected void Update()
+    private void Update()
     {
-        foreach(var x in components)
+        UpdateTick();
+        foreach (var x in components)
         {
             x.Update();
         }
     }
+    protected abstract void UpdateTick();
+    
 }
