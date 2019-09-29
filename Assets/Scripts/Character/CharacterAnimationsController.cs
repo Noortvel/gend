@@ -1,41 +1,47 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
-
-public class CharacterAnimationsController : MonoBehaviour
+namespace GrownEnd
 {
-    [SerializeField]
-    private Animator animator;
-    private NavMeshAgent movement;
 
-    void Start()
+    [RequireComponent(typeof(Character))]
+    public class CharacterAnimationsController : MonoBehaviour
     {
-        movement = GetComponent<NavMeshAgent>();
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        float speedRatio = movement.velocity.magnitude / movement.speed;
-        animator.SetFloat("SpeedRatio", speedRatio);
-    }
-    public void SetType(Character.CharacterType type)
-    {
-        if (type == Character.CharacterType.Magic)
+        private NavMeshAgent movement;
+        private Character character;
+        [SerializeField]
+        private Animator _animator;
+        public Animator animator
         {
-            animator.SetBool("isMagic", true);
+            get { return _animator; }
         }
-        if(type == Character.CharacterType.Archer)
+        private void Awake()
         {
-            animator.SetBool("isArcher", true);
+            character = GetComponent<Character>();
+            movement = GetComponent<NavMeshAgent>();
         }
-    }
-    public void Magic1HCastAnimation_Play()
-    {
-        animator.SetBool("isMagic1HCast", true);
-    }
-    public void Magic1HCastAnimation_Stop()
-    {
-        animator.SetBool("isMagic1HCast", false);
+        void Update()
+        {
+            float speedRatio = movement.velocity.magnitude / movement.speed;
+            _animator.SetFloat("SpeedRatio", speedRatio);
+        }
+        public void SetType(Character.CharacterType type)
+        {
+            if (type == Character.CharacterType.Magic)
+            {
+                _animator.SetBool("isMagic", true);
+            }
+            if (type == Character.CharacterType.Archer)
+            {
+                _animator.SetBool("isArcher", true);
+            }
+        }
+        public void Magic1HCastAnimation_Play()
+        {
+            _animator.SetBool("isMagic1HAttack01", true);
+        }
+        public void Magic1HCastAnimation_Stop()
+        {
+            _animator.SetBool("isMagic1HAttack01", false);
+        }
     }
 }

@@ -1,130 +1,156 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.AI;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 
 
-
-public enum Clan {
-    Light, Dark
-}
-public class CharacterHealthComponent
-{
-    private Character character;
-    private int hp
-    {
-        set;
-        get;
-    }
-    public CharacterHealthComponent(Character character)
-    {
-        this.character = character;
-    }
-    public void ApplyDamage(int damage)
-    {
-        int dt = hp - damage;
-        if(dt <= 0)
-        {
-            hp = 0;
-
-        } else
-        {
-            hp -= dt;
-        }
-    }
-    public void Heal(int hp)
-    {
-        this.hp += hp;
-    }
-
-}
-
-public class Character : MonoBehaviour
+namespace GrownEnd
 {
 
-    private Clan clan;
-    public enum CharacterType
+    public enum Clan
     {
-        Magic,
-        Archer
+        Light, Dark
     }
-
-    [SerializeField]
-    private CharacterType characterType;
- 
-
-
-
-
-
-
-    public CharacterHealthComponent health
+    public class CharacterHealthComponent
     {
-        set;
-        get;
-    }
-
-    [SerializeField]
-    private List<SkillBase> _skills;
-    public List<SkillBase> skills
-    {
-        get
+        private Character character;
+        private int hp
         {
-            return _skills;
+            set;
+            get;
         }
-    }
-
-    public Character selectedObject
-    {
-        get;
-        set;
-    }
-    public SkillBase currentCastingSkill
-    {
-        get;
-        set;
-    }
-    public float angularSpeed
-    {
-        get { return navMesh.angularSpeed; }
-    }
-    [SerializeField]
-    private Animator _animator;
-    public Animator animator
-    {
-        get { return _animator; }
-        private set { _animator = value; }
-    }
-    [SerializeField]
-    private Transform _leftHandSocket, _rightHandSocket;
-
-    public Transform leftHandSocket
-    {
-        get { return _leftHandSocket; }
-    }
-    public Transform rightHandSocket
-    {
-        get { return _rightHandSocket; }
-
-    }
-    public CharacterAnimationsController animationsController
-    {
-        private set;
-        get;
-    }
-
-    private NavMeshAgent navMesh;
-    public void Awake()
-    {
-        navMesh = GetComponent<NavMeshAgent>();
-        animationsController = GetComponent<CharacterAnimationsController>();
-        animationsController.SetType(characterType);
-        foreach (var x in skills)
+        public CharacterHealthComponent(Character character)
         {
-            x.Initialize(this);
+            this.character = character;
+        }
+        public void ApplyDamage(int damage)
+        {
+            int dt = hp - damage;
+            if (dt <= 0)
+            {
+                hp = 0;
+
+            }
+            else
+            {
+                hp -= dt;
+            }
+        }
+        public void Heal(int hp)
+        {
+            this.hp += hp;
         }
 
     }
+    /// <summary>
+    /// Main class for characters
+    /// </summary>
+    public class Character : MonoBehaviour
+    {
 
+        private Clan clan;
+        /// <summary>
+        /// Type of character for select animation state, IN FUTURE WILL BE REMAKED
+        /// </summary>
+        public enum CharacterType
+        {
+            Empty,
+            Magic,
+            Archer
+        }
+
+        [SerializeField]
+        private CharacterType characterType;
+        /// <summary>
+        /// Health system propery
+        /// </summary>
+        public CharacterHealthComponent health
+        {
+            set;
+            get;
+        }
+
+        [SerializeField]
+        private List<SkillBase> _skills;
+        /// <summary>
+        /// Skill list propery propery
+        /// </summary>
+        public List<SkillBase> skills
+        {
+            get
+            {
+                return _skills;
+            }
+        }
+        /// <summary>
+        /// Сharacter that is selected from raycast from player controller
+        /// </summary>
+        public Character selectedObject
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// Current casted skill
+        /// </summary>
+        public SkillBase currentCastingSkill
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// AngularSpeed, follow from navmesh
+        /// </summary>
+        public float angularSpeed
+        {
+            get { return navMesh.angularSpeed; }
+        }
+        /// <summary>
+        /// Animator
+        /// </summary>
+        public Animator animator
+        {
+            get;
+            set;
+        }
+        [SerializeField]
+        private Transform _leftHandSocket, _rightHandSocket;
+
+        /// <summary>
+        /// Transform left hand socket on skeleton
+        /// </summary>
+        public Transform leftHandSocket
+        {
+            get { return _leftHandSocket; }
+        }
+        /// <summary>
+        /// Transform right hand socket on skeleton
+        /// </summary>
+        public Transform rightHandSocket
+        {
+            get { return _rightHandSocket; }
+
+        }
+        /// <summary>
+        /// CharacterAnimationsController prop 
+        /// </summary>
+        public CharacterAnimationsController animationsController
+        {
+            private set;
+            get;
+        }
+        private NavMeshAgent navMesh;
+        private void Awake()
+        {
+            navMesh = GetComponent<NavMeshAgent>();
+            animationsController = GetComponent<CharacterAnimationsController>();
+            animationsController.SetType(characterType);
+            animator = animationsController.animator;
+            foreach (var x in skills)
+            {
+                x.Initialize(this);
+            }
+        }
+
+    }
 }

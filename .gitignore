@@ -46,3 +46,19 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
+
+# DocFX
+###############
+#    folder   #
+###############
+/**/DROP/
+/**/TEMP/
+/**/packages/
+/**/bin/
+/**/obj/
+_site
+###############
+#  temp file  #
+###############
+*.yml
+

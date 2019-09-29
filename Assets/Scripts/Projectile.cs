@@ -1,31 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Projectile : MonoBehaviour
+namespace GrownEnd
 {
-    [SerializeField]
-    private float speed;
-    [SerializeField]
-    private float lifeTime;
-    private Vector3 lastPosition;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        lastPosition = transform.position;
-    }
 
-    // Update is called once per frame
-    void Update()
+    public class Projectile : MonoBehaviour
     {
-        if(lifeTime > 0)
+        [SerializeField]
+        private float speed;
+        [SerializeField]
+        private float lifeTime;
+        private Vector3 lastPosition;
+
+        // Start is called before the first frame update
+        void Start()
         {
-            lifeTime -= Time.deltaTime;
-        } else
-        {
-            Destroy(gameObject);
+            lastPosition = transform.position;
         }
-        transform.position += transform.forward * speed * Time.deltaTime;   
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (lifeTime > 0)
+            {
+                lifeTime -= Time.deltaTime;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+            transform.position += transform.forward * speed * Time.deltaTime;
+        }
     }
 }

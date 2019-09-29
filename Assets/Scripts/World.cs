@@ -1,26 +1,29 @@
 ﻿using UnityEngine;
-
-public class World : MonoBehaviour
+namespace GrownEnd
 {
-    private static World __world = null;
 
-    [SerializeField]
-    private Transform charater;
-
-    public Transform Character
+    public class World : MonoBehaviour
     {
-        get
+        private static World __world = null;
+
+        [SerializeField]
+        private Transform charater;
+
+        public Transform Character
         {
-            return charater;
+            get
+            {
+                return charater;
+            }
         }
-    }
-    
-    void Awake()
-    {
-        __world = this;
-    }
-    public static World GetInstance()
-    {
-        return __world;
+
+        void Awake()
+        {
+            __world = this;
+        }
+        public static World GetInstance()
+        {
+            return __world;
+        }
     }
 }

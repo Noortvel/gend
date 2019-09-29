@@ -1,41 +1,44 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class FistsAttack : SkillBase
+namespace GrownEnd
 {
-    [SerializeField]
-    private AnimationClip l1, r1;
-    [SerializeField]
-    private int baseDamage;
-    [SerializeField]
-    private float scalePerStraight;
-   
-    private Character owner;
 
-
-    private Animation cAnimation;
-
-    private bool LeftRightPunch = false;
-    public override void Activate()
+    public class FistsAttack : SkillBase
     {
-    
-    }
+        [SerializeField]
+        private AnimationClip l1, r1;
+        [SerializeField]
+        private int baseDamage;
+        [SerializeField]
+        private float scalePerStraight;
 
-    public override void AnimationNotify()
-    {
-        throw new System.NotImplementedException();
-    }
+        private Character owner;
 
-    public override void Initialize(Character character)
-    {
-        owner = character;
-       
-        //cAnimation = controller.GetControlledCharacter()
-    }
 
-    public override void Interrupt()
-    {
-        throw new System.NotImplementedException();
+        private Animation cAnimation;
+
+        private bool LeftRightPunch = false;
+        public override void Activate()
+        {
+
+        }
+
+        public override void AnimationNotify()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void Initialize(Character character)
+        {
+            owner = character;
+
+            //cAnimation = controller.GetControlledCharacter()
+        }
+
+        public override void Interrupt()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

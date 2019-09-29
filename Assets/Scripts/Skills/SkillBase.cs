@@ -1,73 +1,76 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public abstract class SkillBase : MonoBehaviour
+namespace GrownEnd
 {
-    [SerializeField]
-    protected string diplayName = "None";
-    [SerializeField]
-    protected string description = "None";
-    [SerializeField]
-    protected Texture2D icon = null;
 
-    public bool isCasted
+    public abstract class SkillBase : MonoBehaviour
     {
-        protected set;
-        get;
-    }
-     
-    public enum SkillType
-    {
-        None,
-        Active,
-        Passive,
-        AutoCast
-        
-    }
-    public enum SkillEntity
-    {
-        None,
-        Item,
-        Perc
-    }
+        [SerializeField]
+        protected string diplayName = "None";
+        [SerializeField]
+        protected string description = "None";
+        [SerializeField]
+        protected Texture2D icon = null;
 
-    [SerializeField]
-    protected SkillType type = SkillType.None;
-    [SerializeField]
-    protected SkillEntity entity = SkillEntity.None;
-    [SerializeField]
-    protected float _coolDown = 0;
-    [SerializeField]
-    protected float _distance = 0;
-    
-    public float coolDown
-    {
-        get { return _coolDown; }
-    }
-    public bool isReadyToCast
-    {
-        protected set;
-        get;
-    }
-    public float distance
-    {
-        get { return _distance; }
-    }
+        public bool isCasted
+        {
+            protected set;
+            get;
+        }
 
-    protected Character character
-    {
-        get;
-        set;
-    }
-    protected void SetCastingStatus()
-    {
-        
-    }
-    public abstract void Activate();
-    public abstract void Interrupt();
-    public abstract void AnimationNotify();
-    public abstract void Initialize(Character character);
+        public enum SkillType
+        {
+            None,
+            Active,
+            Passive,
+            AutoCast
 
-    
+        }
+        public enum SkillEntity
+        {
+            None,
+            Item,
+            Perc
+        }
+
+        [SerializeField]
+        protected SkillType type = SkillType.None;
+        [SerializeField]
+        protected SkillEntity entity = SkillEntity.None;
+        [SerializeField]
+        protected float _coolDown = 0;
+        [SerializeField]
+        protected float _distance = 0;
+
+        public float coolDown
+        {
+            get { return _coolDown; }
+        }
+        public bool isReadyToCast
+        {
+            protected set;
+            get;
+        }
+        public float distance
+        {
+            get { return _distance; }
+        }
+
+        protected Character character
+        {
+            get;
+            set;
+        }
+        protected void SetCastingStatus()
+        {
+
+        }
+        public abstract void Activate();
+        public abstract void Interrupt();
+        public abstract void AnimationNotify();
+        public abstract void Initialize(Character character);
+
+
+    }
 }

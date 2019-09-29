@@ -1,45 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class SkillsSlots : BaseComponent
+namespace GrownEnd
 {
-    private struct SkillMap
+
+    public class SkillsSlots : SubComponent
     {
-        public SkillBase skill;
-        public KeyCode key;
-    }
-    private PlayerController playerController;
-    private List<SkillMap> skillMap;
-    public SkillsSlots(PlayerController controller) : base(controller)
-    {
-        skillMap = new List<SkillMap>();
-        playerController = controller;
-    }
-    public void AddSkill(SkillBase skill, KeyCode key)
-    {
-        var t = new SkillMap();
-        t.skill = skill;
-        t.key = key;
-        skillMap.Add(t);
-    }
-    public void RemoveSkill(SkillBase skill)
-    {
-        foreach (var x in skillMap)
+        private struct SkillMap
         {
-            if (x.skill == skill)
+            public SkillBase skill;
+            public KeyCode key;
+        }
+        private PlayerController playerController;
+        private List<SkillMap> skillMap;
+        public SkillsSlots(PlayerController controller) : base(controller)
+        {
+            skillMap = new List<SkillMap>();
+            playerController = controller;
+        }
+        public void AddSkill(SkillBase skill, KeyCode key)
+        {
+            var t = new SkillMap();
+            t.skill = skill;
+            t.key = key;
+            skillMap.Add(t);
+        }
+        public void RemoveSkill(SkillBase skill)
+        {
+            foreach (var x in skillMap)
             {
-                skillMap.Remove(x);
+                if (x.skill == skill)
+                {
+                    skillMap.Remove(x);
+                }
             }
         }
-    }
-    public override void Update()
-    {
-        foreach (var x in skillMap)
+        public override void Update()
         {
-            if (Input.GetKeyDown(x.key))
+            foreach (var x in skillMap)
             {
-                playerController.characterController.CastSkill(x.skill);
+                if (Input.GetKeyDown(x.key))
+                {
+                    playerController.characterController.CastSkill(x.skill);
+                }
             }
         }
     }

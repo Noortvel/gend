@@ -1,93 +1,96 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class CharacterTaskRunner 
+namespace GrownEnd
 {
-    private Queue<CharacterTask> characterTasks;
-    private CharacterTask currentRunnable;
-    private bool isUpdateTick = false;
-    public Character character
-    {
-        get;
-        private set;
-    }
-    public int CoutTask
-    {
-        get { return characterTasks.Count; }
-    }
 
-    public CharacterTaskRunner(Character character)
+    public class CharacterTaskRunner
     {
-        this.character = character;
-        characterTasks = new Queue<CharacterTask>();
-    }
-    public void AddTask(CharacterTask task)
-    {
-        characterTasks.Enqueue(task);
-    }
-    public void RunTaskImmediately(CharacterTask task)
-    {
-        BreakQueue();
-        currentRunnable = task;
-        currentRunnable.Run();
-        isUpdateTick = true;
-    }
-    public void BreakQueue()
-    {
-        isUpdateTick = false;
-        if(currentRunnable != null)
+        private Queue<CharacterTask> characterTasks;
+        private CharacterTask currentRunnable;
+        private bool isUpdateTick = false;
+        public Character character
         {
-            currentRunnable.Stop();
+            get;
+            private set;
         }
-        currentRunnable = null;
-        characterTasks.Clear();
-    }
-    public void RunQueue()
-    {
-        if (currentRunnable != null)
+        public int CoutTask
         {
-            currentRunnable.Stop();
-            isUpdateTick = true;
-            return;
+            get { return characterTasks.Count; }
         }
-        Debug.Log("Run Queue, size: " + characterTasks.Count + "tasks: ");
-        foreach(var x in characterTasks)
+
+        public CharacterTaskRunner(Character character)
         {
-            Debug.Log(x);
+            this.character = character;
+            characterTasks = new Queue<CharacterTask>();
         }
-        currentRunnable = characterTasks.Dequeue();
-        currentRunnable.Run();
-        isUpdateTick = true;
-    }
-    public void Update()
-    {
-        if (isUpdateTick)
+        public void AddTask(CharacterTask task)
         {
-            if (currentRunnable.isNeedUpdate)
-            {
-                currentRunnable.UpdateTick();
-            }
+            characterTasks.Enqueue(task);
         }
-    }
-    public void TaskEndJob(CharacterTask task)
-    {
-
-
-        Debug.Log("Task End: " + task + "Queue size: " + characterTasks.Count);
-
-        if (characterTasks.Count > 0)
+        public void RunTaskImmediately(CharacterTask task)
         {
-
-            currentRunnable = characterTasks.Dequeue();
+            BreakQueue();
+            currentRunnable = task;
             currentRunnable.Run();
+            isUpdateTick = true;
         }
-        else if(isUpdateTick)
+        public void BreakQueue()
         {
             isUpdateTick = false;
+            if (currentRunnable != null)
+            {
+                currentRunnable.Stop();
+            }
             currentRunnable = null;
+            characterTasks.Clear();
         }
+        public void RunQueue()
+        {
+            if (currentRunnable != null)
+            {
+                currentRunnable.Stop();
+                isUpdateTick = true;
+                return;
+            }
+            Debug.Log("Run Queue, size: " + characterTasks.Count + "tasks: ");
+            foreach (var x in characterTasks)
+            {
+                Debug.Log(x);
+            }
+            currentRunnable = characterTasks.Dequeue();
+            currentRunnable.Run();
+            isUpdateTick = true;
+        }
+        public void Update()
+        {
+            if (isUpdateTick)
+            {
+                if (currentRunnable.isNeedUpdate)
+                {
+                    currentRunnable.UpdateTick();
+                }
+            }
+        }
+        public void TaskEndJob(CharacterTask task)
+        {
+
+
+            Debug.Log("Task End: " + task + "Queue size: " + characterTasks.Count);
+
+            if (characterTasks.Count > 0)
+            {
+
+                currentRunnable = characterTasks.Dequeue();
+                currentRunnable.Run();
+            }
+            else if (isUpdateTick)
+            {
+                isUpdateTick = false;
+                currentRunnable = null;
+            }
+        }
+
+
     }
-
-
 }
