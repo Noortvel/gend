@@ -4,73 +4,84 @@ using UnityEngine;
 namespace GrownEnd
 {
 
-    public abstract class SkillBase : MonoBehaviour
+    public abstract class ActiveSkill : MonoBehaviour
     {
+        private List<System.Action> endCastCallbacks;
+        private List<System.Action> startCastCallbacks;
+
+        public void AddStartCastCallback(System.Action a)
+        {
+            startCastCallbacks.Add(a);
+        }
+        public void AddEndCastCallback(System.Action a)
+        {
+            endCastCallbacks.Add(a);
+        }
+        protected void EndCastCallbackExecute()
+        {
+            foreach (var x in endCastCallbacks)
+            {
+                x();
+            }
+        }
+        protected void StartCastCallbackExecute()
+        {
+            foreach (var x in startCastCallbacks)
+            {
+                x();
+            }
+        }
+        protected void ClearStartCastCallbacks()
+        {
+            startCastCallbacks.Clear();
+        }
+        protected void ClearEndCastCallbacks()
+        {
+            endCastCallbacks.Clear();
+        }
+
+
         [SerializeField]
         protected string diplayName = "None";
         [SerializeField]
         protected string description = "None";
-        [SerializeField]
-        protected Texture2D icon = null;
-
-        public bool isCasted
+        public bool isCasting
         {
             protected set;
             get;
         }
-
-        public enum SkillType
-        {
-            None,
-            Active,
-            Passive,
-            AutoCast
-
-        }
         public enum SkillEntity
         {
-            None,
             Item,
             Perc
         }
-
         [SerializeField]
-        protected SkillType type = SkillType.None;
-        [SerializeField]
-        protected SkillEntity entity = SkillEntity.None;
+        protected SkillEntity entity;
         [SerializeField]
         protected float _coolDown = 0;
         [SerializeField]
         protected float _distance = 0;
-
         public float coolDown
         {
             get { return _coolDown; }
-        }
-        public bool isReadyToCast
-        {
-            protected set;
-            get;
         }
         public float distance
         {
             get { return _distance; }
         }
-
         protected Character character
         {
             get;
             set;
         }
-        protected void SetCastingStatus()
-        {
-
-        }
         public abstract void Activate();
         public abstract void Interrupt();
-        public abstract void AnimationNotify();
+        protected abstract void AnimationNotify();
         public abstract void Initialize(Character character);
-
-
+        protected void InitalizeSkillBase()
+        {
+            startCastCallbacks = new List<System.Action>();
+            endCastCallbacks = new List<System.Action>();
+        }
     }
 }

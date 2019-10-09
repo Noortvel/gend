@@ -31,16 +31,12 @@ namespace GrownEnd
             protected set;
             get;
         }
-
         public abstract void Run();
-
-
         public abstract void UpdateTick();
-        public abstract void Stop();
+        public abstract void Interupt();
         protected void EndTask()
         {
             characterTaskManager.TaskEndJob(this);
         }
-
     }
 }

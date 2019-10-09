@@ -109,7 +109,6 @@ namespace GrownEnd
         {
             if (Input.GetMouseButtonDown(0))
             {
-                //print(controlledCharacter.isTargetInSeeSector());
                 RaycastCheck();
             }
         }

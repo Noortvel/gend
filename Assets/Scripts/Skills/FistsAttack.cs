@@ -4,7 +4,7 @@ using UnityEngine;
 namespace GrownEnd
 {
 
-    public class FistsAttack : SkillBase
+    public class FistsAttack : ActiveSkill
     {
         [SerializeField]
         private AnimationClip l1, r1;
@@ -24,7 +24,7 @@ namespace GrownEnd
 
         }
 
-        public override void AnimationNotify()
+        protected override void AnimationNotify()
         {
             throw new System.NotImplementedException();
         }

@@ -33,11 +33,11 @@ namespace GrownEnd
         {
             if (isNeedUpdate && _isMoveStart && (navMesh.destination - character.transform.position).magnitude < eps)
             {
-                Stop();
+                Interupt();
             }
         }
 
-        public override void Stop()
+        public override void Interupt()
         {
             _isMoveStart = false;
             navMesh.isStopped = true;

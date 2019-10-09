@@ -71,11 +71,11 @@ namespace GrownEnd
         }
 
         [SerializeField]
-        private List<SkillBase> _skills;
+        private List<ActiveSkill> _skills;
         /// <summary>
         /// Skill list propery propery
         /// </summary>
-        public List<SkillBase> skills
+        public List<ActiveSkill> skills
         {
             get
             {
@@ -93,7 +93,7 @@ namespace GrownEnd
         /// <summary>
         /// Current casted skill
         /// </summary>
-        public SkillBase currentCastingSkill
+        public ActiveSkill currentCastingSkill
         {
             get;
             set;
@@ -144,8 +144,11 @@ namespace GrownEnd
         {
             navMesh = GetComponent<NavMeshAgent>();
             animationsController = GetComponent<CharacterAnimationsController>();
-            animationsController.SetType(characterType);
-            animator = animationsController.animator;
+            if (animationsController != null)
+            {
+                animationsController.SetType(characterType);
+                animator = animationsController.animator;
+            }
             foreach (var x in skills)
             {
                 x.Initialize(this);

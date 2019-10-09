@@ -38,26 +38,27 @@ namespace GrownEnd
         public void BreakQueue()
         {
             isUpdateTick = false;
+            characterTasks.Clear();
             if (currentRunnable != null)
             {
-                currentRunnable.Stop();
+                currentRunnable.Interupt();
             }
             currentRunnable = null;
-            characterTasks.Clear();
+            
         }
         public void RunQueue()
         {
             if (currentRunnable != null)
             {
-                currentRunnable.Stop();
+                currentRunnable.Interupt();
                 isUpdateTick = true;
                 return;
             }
-            Debug.Log("Run Queue, size: " + characterTasks.Count + "tasks: ");
-            foreach (var x in characterTasks)
-            {
-                Debug.Log(x);
-            }
+            //Debug.Log("Run Queue, size: " + characterTasks.Count + "tasks: ");
+            //foreach (var x in characterTasks)
+            //{
+            //    Debug.Log(x);
+            //}
             currentRunnable = characterTasks.Dequeue();
             currentRunnable.Run();
             isUpdateTick = true;
@@ -74,13 +75,9 @@ namespace GrownEnd
         }
         public void TaskEndJob(CharacterTask task)
         {
-
-
-            Debug.Log("Task End: " + task + "Queue size: " + characterTasks.Count);
-
+            //Debug.Log("Task End: " + task + "Queue size: " + characterTasks.Count);
             if (characterTasks.Count > 0)
             {
-
                 currentRunnable = characterTasks.Dequeue();
                 currentRunnable.Run();
             }
@@ -90,7 +87,5 @@ namespace GrownEnd
                 currentRunnable = null;
             }
         }
-
-
     }
 }

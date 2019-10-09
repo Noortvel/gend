@@ -6,7 +6,7 @@ using UnityEngine;
 namespace GrownEnd
 {
 
-    public class MagicArrow : SkillBase
+    public class MagicArrow : ActiveSkill
     {
 
         [SerializeField]
@@ -15,18 +15,14 @@ namespace GrownEnd
         private GameObject magicArrowProjectile;
         private GameObject _gameObjectInstace;
 
-        [SerializeField]
-        private AnimationClip castAnimation;
-
         public override void Activate()
         {
-            print("Activate");
-            isCasted = false;
-            //InvokeThroughTime
+            isCasting = true;
+            StartCastCallbackExecute();
+            ClearStartCastCallbacks();
             character.animationsController.Magic1HCastAnimation_Play();
         }
-
-        public override void AnimationNotify()
+        protected override void AnimationNotify()
         {
             Vector3 dt = (character.selectedObject.transform.position - character.rightHandSocket.position);
             float angle = Mathf.Atan2(dt.x, dt.z) * Mathf.Rad2Deg;
@@ -34,22 +30,23 @@ namespace GrownEnd
             _gameObjectInstace = MonoBehaviour.Instantiate(magicArrowProjectile, character.rightHandSocket.position, rot);
 
             character.animationsController.Magic1HCastAnimation_Stop();
-            isCasted = true;
 
+            EndCastCallbackExecute();
+            ClearEndCastCallbacks();
+            isCasting = false;
         }
-
         public override void Initialize(Character character)
         {
+            InitalizeSkillBase();
             this.character = character;
             AnimationEventsCatcher.animationMagic1HCast += AnimationNotify;
-
         }
-
         public override void Interrupt()
         {
             character.animationsController.Magic1HCastAnimation_Stop();
-            isCasted = true;
-
+            EndCastCallbackExecute();
+            ClearEndCastCallbacks();
+            isCasting = false;
         }
     }
 }

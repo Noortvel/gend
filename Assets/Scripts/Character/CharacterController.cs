@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AI;
-using System;
+﻿using UnityEngine;
 
 namespace GrownEnd
 {
@@ -18,32 +14,17 @@ namespace GrownEnd
 
     public class CharacterController : MonoBehaviour
     {
-
         private Character character;
-
         private CharacterTaskRunner taskRunner;
         private ChararcterTaskCreator taskCreator;
-
-
-
-
         public void Awake()
         {
-
             character = GetComponent<Character>();
             taskRunner = new CharacterTaskRunner(character);
             taskCreator = new ChararcterTaskCreator(taskRunner);
-
-
-
-        }
-        public void RotateToSelectedObject()
-        {
-
         }
         public void RotateToTargetIsNeed()
         {
-
             taskRunner.RunTaskImmediately(taskCreator.RotateIsNeedTask());
         }
         public void MoveTo(Vector3 position)
@@ -58,7 +39,6 @@ namespace GrownEnd
             }
             Vector3 dt = (character.selectedObject.transform.position - character.transform.position);
             float vm = Vector3.Dot(character.transform.forward, dt);
-
             return vm > 0 ? true : false;
         }
         public void PickItem()
@@ -68,30 +48,21 @@ namespace GrownEnd
                 //TODO:PickItem
             }
         }
-
-        public void CastSkill(SkillBase skill)
+        public void CastSkill(ActiveSkill skill)
         {
-            print("Cast skill " + skill);
-            print("Current casted skill " + character.currentCastingSkill);
-            print("Is Equal " + (skill == character.currentCastingSkill));
             if (character.currentCastingSkill != skill)
             {
                 PreapareToSkill(skill);
             }
         }
-        public void PreapareToSkill(SkillBase skill)
+        public void PreapareToSkill(ActiveSkill skill)
         {
-            //print(character);
-            //print(character.selectedObject);
+            
             if (character.selectedObject == null)
             {
                 return;
             }
-
-            if (taskRunner.CoutTask != 0)
-            {
-                taskRunner.BreakQueue();
-            }
+            taskRunner.BreakQueue();
 
             Vector3 dt = character.selectedObject.transform.position - character.transform.position;
             float sdt = skill.distance / dt.magnitude;

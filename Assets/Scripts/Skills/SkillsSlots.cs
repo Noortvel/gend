@@ -8,7 +8,7 @@ namespace GrownEnd
     {
         private struct SkillMap
         {
-            public SkillBase skill;
+            public ActiveSkill skill;
             public KeyCode key;
         }
         private PlayerController playerController;
@@ -18,14 +18,14 @@ namespace GrownEnd
             skillMap = new List<SkillMap>();
             playerController = controller;
         }
-        public void AddSkill(SkillBase skill, KeyCode key)
+        public void AddSkill(ActiveSkill skill, KeyCode key)
         {
             var t = new SkillMap();
             t.skill = skill;
             t.key = key;
             skillMap.Add(t);
         }
-        public void RemoveSkill(SkillBase skill)
+        public void RemoveSkill(ActiveSkill skill)
         {
             foreach (var x in skillMap)
             {

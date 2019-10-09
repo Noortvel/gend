@@ -22,7 +22,7 @@ namespace GrownEnd
             var obj = new RotateCharacterToTargetIsNeed(runner);
             return obj;
         }
-        public CharacterCastSkill CastSkillTask(SkillBase skill)
+        public CharacterCastSkill CastSkillTask(ActiveSkill skill)
         {
             var obj = new CharacterCastSkill(runner);
             obj.SetSkill(skill);

@@ -6,37 +6,34 @@ namespace GrownEnd
 
     public class CharacterCastSkill : CharacterTask
     {
-        private SkillBase skill;
+        private ActiveSkill skill;
         public CharacterCastSkill(CharacterTaskRunner manager) : base(manager)
         {
-            isNeedUpdate = true;
-            isBreakable = false;
+            isNeedUpdate = false;
+            isBreakable = true;
         }
-        public void SetSkill(SkillBase skill)
+        public void SetSkill(ActiveSkill skill)
         {
             this.skill = skill;
         }
         public override void Run()
         {
-            Debug.Log("CharacterCastSkill Run");
             skill.Activate();
+            skill.AddEndCastCallback(EndCast);
             character.currentCastingSkill = skill;
-
         }
-
-        public override void Stop()
+        private void EndCast()
         {
-            skill.Interrupt();
             character.currentCastingSkill = null;
             EndTask();
         }
-
+        public override void Interupt()
+        {
+            skill.Interrupt();
+        }
         public override void UpdateTick()
         {
-            if (skill.isCasted)
-            {
-                Stop();
-            }
+          
         }
     }
 }

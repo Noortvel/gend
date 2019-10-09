@@ -9,12 +9,18 @@ namespace GrownEnd
     {
         private GameObject groundPointers;
         private bool isNeedUpdate = false;
-
+        private float lifeTime = 0.5f;
+        private float _lifeTime;
+        private Vector3 scaler;
+        private Vector3 defaultScale;
         public GroundPointer(PlayerController playerController, GameObject groudPointerPrefab) : base(playerController)
         {
             var location = playerController.controlledCharacter.transform;
             groundPointers = MonoBehaviour.Instantiate(groudPointerPrefab, location.position, location.rotation);
             groundPointers.SetActive(false);
+            _lifeTime = lifeTime;
+            scaler = new Vector3();
+            defaultScale = groudPointerPrefab.transform.localScale;
 
         }
         public void Click(RaycastHit info)
@@ -29,19 +35,34 @@ namespace GrownEnd
             var tpointer = groundPointers.transform;
             tpointer.position = info.point;
             tpointer.rotation = qrot;
+            tpointer.localScale = defaultScale;
             tpointer.gameObject.SetActive(true);
+            _lifeTime = lifeTime;
             isNeedUpdate = true;
         }
         public override void Update()
         {
             if (isNeedUpdate)
             {
-                var dt = World.GetInstance().Character.transform.position - groundPointers.transform.position;
-                if (dt.magnitude < 0.1f)
+                if (_lifeTime > 0)
+                {
+                    float scale = _lifeTime / lifeTime;
+                    _lifeTime -= Time.deltaTime;
+                    scaler.x = scale;
+                    scaler.y = scale;
+                    scaler.z = scale;
+                    groundPointers.transform.localScale = scaler;
+                }
+                else
                 {
                     groundPointers.SetActive(false);
                     isNeedUpdate = false;
                 }
+                //var dt = World.GetInstance().Character.transform.position - groundPointers.transform.position;
+                //if (dt.magnitude < 0.1f)
+                //{
+                    
+                //}
             }
         }
     }
